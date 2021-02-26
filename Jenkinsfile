@@ -9,6 +9,7 @@ pipeline {
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'passwordVariable.', usernameVariable: 'usernameVariable')]) {
+          sh "${env.dockerhubUser}"
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh "docker push ppazdziorek/people:${env.BUILD_NUMBER}"
         }
