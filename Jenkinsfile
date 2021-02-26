@@ -3,20 +3,20 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh "docker build -t dawborycki/people:${env.BUILD_NUMBER} ."
+        sh "docker build -t ppazdziorek/people:${env.BUILD_NUMBER} ."
       }
     }    
     stage('Docker Push') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'Leibnitz1.', usernameVariable: 'ppazdziorek')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker push dawborycki/people:${env.BUILD_NUMBER}"
+          sh "docker push ppazdziorek/people:${env.BUILD_NUMBER}"
         }
       }
     }
     stage('Docker Remove Local Image') {
       steps {
-        sh "docker rmi dawborycki/people:${env.BUILD_NUMBER}"
+        sh "docker rmi ppazdziorek/people:${env.BUILD_NUMBER}"
       }
     }    
     stage('Apply Kubernetes Manifest') {
